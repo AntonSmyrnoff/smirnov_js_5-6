@@ -1,50 +1,68 @@
-		
-var ms = 1;
-var s = 1;
-var m = 1;
+var i = 0;
+var timerField = 0; // таймер не запущен
+var timerId;
+var startButton = document.getElementById('start_button');
 
 function timer() {
-	
-	var timerMilisec = setInterval(function() {
-		if (ms%100 < 10) {
-		milisec.innerHTML = "0" + ms%100;
-		} else {
-			milisec.innerHTML = ms%100;
-			}
-		ms++;
-	}, 10);
+	if (timerField==0) {
+		timerId = setInterval(function() {
+			
+			i++
+			
+			var ms = i%100;	
+			if (ms < 10) {
+			milisec.innerHTML = "0" + ms;
+			} else {
+				milisec.innerHTML = ms;
+				};
 
-	var timerSec = setInterval(function() {
-		if (s%60 < 10) {
-		sec.innerHTML = "0" + s%60;
-		} else {
-			sec.innerHTML = s%60;
-			} 
-		s++;
-	}, 1000);
+			var s = parseInt(i/100)%60;	
+			if ( s < 10) {
+			sec.innerHTML = "0" + s;
+			} else {
+				sec.innerHTML = s;
+				}; 
 
-	var timerMin = setInterval(function() {
-		if (m%60 < 10) {
-		min.innerHTML = "0" + m%60;
-	} else {
-		min.innerHTML = m%60;
-	}
-		m++;
-	}, 60000);
+			var m = parseInt(i/6000)%60;
+			if ( m < 10) {
+			min.innerHTML = "0" + m;
+			} else {
+				min.innerHTML = m
+				}
 
-	start_button.innerHTML = 'PAUSE';
-	start_button.style.backgroundColor = 'blue';
-	start_button.addEventListener( 'click', cont );
+		}, 10);
+
+		startButton.innerHTML = 'PAUSE';
+		startButton.style.backgroundColor = 'blue';
+		startButton.id = 'pause_button';
+		timerField = 1; //индикатор запущенного таймера
+
+		pause_button.addEventListener( 'click', pause );
+
+	};
 };
 
-function cont() {
-	clearInterval(timerMilisec);
-	clearInterval(timerSec);
-	clearInterval(timerMin);
-}
+function pause() {
+	clearInterval(timerId);
+	//pause_button.id = 'start_button';
+	pause_button.innerHTML = 'CONT..';
+	pause_button.style.backgroundColor = 'red';
+	pause_button.id = 'start_button';
+	timerField = 0;
+};
+
+/*function cont() {
+	cont_button.innerHTML = 'PAUSE';
+	cont_button.style.backgroundColor = 'blue';
+	cont_button.id = 'pause_button';
+	timerField = 0;
+
+}*/
+
+startButton.addEventListener( 'click', timer); // запуск таймера по клику
 
 
-start_button.addEventListener( 'click', timer );
+
 
 
 
