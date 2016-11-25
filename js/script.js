@@ -4,6 +4,8 @@ var timerId;
 
 function timer() {
 	if (timerField == 0) {
+		
+		timerField = 1; // таймер запущен
 		timerId = setInterval(function() {
 			
 			i++
@@ -31,17 +33,19 @@ function timer() {
 
 		}, 10);
 		
-		start_button.innerHTML = 'PAUSE';
-		start_button.style.backgroundColor = 'blue';
-		timerField = 1; // таймер запущен
 		start_button.addEventListener( 'click', pause );
-	}	
+		start_button.innerHTML = 'PAUSE ' + timerField;
+		start_button.style.backgroundColor = 'blue';
+	} 
+		
 };
 
 function pause() {
+	
 	clearInterval(timerId);
-	start_button.innerHTML = 'CONT..';
 	timerField = 0; //останавливаем таймер
+	start_button.innerHTML = 'CONT.. ' + timerField;
+	
 };
 
 
